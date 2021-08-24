@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 container:
-  image: cscotest.azurecr.io/mabuild:31
+  image: cscotest.azurecr.io/mabuild:latest
   endpoint: CSCOTest
 
 steps:
