@@ -9,6 +9,8 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+container: cscotest.azurecr.io/mabuild:latest
+
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
