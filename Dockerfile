@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ENV DEVIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 run apt-get update && \
     apt-get install -y \
