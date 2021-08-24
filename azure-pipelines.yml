@@ -22,3 +22,7 @@ steps:
   inputs:
     workingDirectory: build
     cmakeArgs: ../
+
+  task: CMake@1
+  inputs:
+    cmakeArgs: '--build .'
