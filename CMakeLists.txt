@@ -3,6 +3,8 @@
 cmake_minimum_required(VERSION 3.10)
 project("MultiArch")
 
+message(STATUS "Test Message for Confirmation")
+
 set(F_CPU 8000000UL)
 set(MCU atmega328p)
 set(BAUD 38400)
