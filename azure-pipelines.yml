@@ -20,4 +20,5 @@ steps:
 
 - task: CMake@1
   inputs:
-    workingDirectory: $(Build.ArtifactStagingDirectory)\build
+    workingDirectory: build
+    cmakeArgs: ../
