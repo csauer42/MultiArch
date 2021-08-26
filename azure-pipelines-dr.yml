@@ -19,35 +19,23 @@ variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
-stages:
-- stage: Download
-  displayName: Download artifacts
-  jobs:
-  - job: Download
-    displayName: Download
-    steps:
-    - task: UniversalPackages@0
-      inputs:
-        command: 'download'
-        downloadDirectory: '$(System.WorkFolder)'
-        feedsToUse: 'internal'
-        vstsFeed: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
-        vstsFeedPackage: '276eff5a-35b2-4072-a374-17ef9ba840f5'
-        vstsPackageVersion: '0.0.1'
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        buildContext: '$(System.WorkFolder)'
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
-          latest
+steps:
+- task: UniversalPackages@0
+  inputs:
+    command: 'download'
+    downloadDirectory: '$(System.DefaultWorkingDirectory)'
+    feedsToUse: 'internal'
+    vstsFeed: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
+    vstsFeedPackage: '276eff5a-35b2-4072-a374-17ef9ba840f5'
+    vstsPackageVersion: '0.0.1'
+- task: Docker@2
+  displayName: Build and push an image to container registry
+  inputs:
+    command: buildAndPush
+    repository: $(imageRepository)
+    dockerfile: $(dockerfilePath)
+    buildContext: '$(System.DefaultWorkingDirectory)'
+    containerRegistry: $(dockerRegistryServiceConnection)
+    tags: |
+      $(tag)
+      latest
