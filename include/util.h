@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+// dummy function to use in test
 uint8_t truncate(uint8_t);
 
 #endif
