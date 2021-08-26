@@ -20,6 +20,8 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 steps:
+- script: |
+    mkdir $(System.DefaultWorkingDirectory)/artifacts
 - task: UniversalPackages@0
   inputs:
     command: 'download'
