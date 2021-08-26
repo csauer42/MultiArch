@@ -31,18 +31,15 @@ steps:
 - script: |
     echo 'Checking for download'
     ls -lah $(Build.ArtifactStagingDirectory)
-#    md5sum $(Build.ArtifactStagingDirectory)/*
-#- task: Docker@2
-#  displayName: Build and push an image to container registry
-#  inputs:
-#    command: buildAndPush
-#    repository: $(imageRepository)
-#    dockerfile: $(dockerfilePath)
-#    buildContext: $(System.DefaultWorkingDirectory)
-#    containerRegistry: $(dockerRegistryServiceConnection)
-#    tags: |
-#      $(tag)
-#      latest
-#- script: |
-#    echo 'Checking for download after'
-#    ls -lah '$(System.DefaultWorkingDirectory)'
+    md5sum $(Build.ArtifactStagingDirectory)/*
+- task: Docker@2
+  displayName: Build and push an image to container registry
+  inputs:
+    command: buildAndPush
+    repository: $(imageRepository)
+    dockerfile: $(dockerfilePath)
+    buildContext: $(Build.ArtifactStagingDirectory)
+    containerRegistry: $(dockerRegistryServiceConnection)
+    tags: |
+      $(tag)
+      latest
