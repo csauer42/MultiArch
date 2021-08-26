@@ -20,7 +20,7 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
-- stage: Downlaod
+- stage: Download
   displayName: Download artifacts
   jobs:
   - job: Download
@@ -48,6 +48,7 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
+        buildContext: '$System.DefaultWorkingDirectory)'
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
