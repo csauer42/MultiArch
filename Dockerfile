@@ -7,4 +7,9 @@ run apt-get update && \
   avr-libc \
   build-essential \
   cmake \
-  gcc-avr
+  gcc-avr \
+  xz-utils
+
+# Install aarch64 toolchain
+COPY gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu.tar.xz /tmp
+RUN mkdir /usr/local/gcc-10.3-2021.07-aarch64 && tar -C /usr/local/gcc-10.3-2021.07-aarch64/ -xf /tmp/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu.tar.xz && rm /tmp/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu.tar.xz
