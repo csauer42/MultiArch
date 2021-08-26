@@ -25,7 +25,7 @@ steps:
 - task: UniversalPackages@0
   inputs:
     command: 'download'
-    downloadDirectory: '$(System.DefaultWorkingDirectory)/artifacts'
+    downloadDirectory: '$(System.DefaultWorkingDirectory)/artifacts/'
     feedsToUse: 'internal'
     vstsFeed: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
     vstsFeedPackage: '276eff5a-35b2-4072-a374-17ef9ba840f5'
