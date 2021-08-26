@@ -23,15 +23,15 @@ steps:
 - task: UniversalPackages@0
   inputs:
     command: 'download'
-    downloadDirectory: '$(Build.ArtifactStagingDirectory)'
+    downloadDirectory: '$(System.DefaultWorkingDirectory)'
     feedsToUse: 'internal'
     vstsFeed: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
     vstsFeedPackage: '276eff5a-35b2-4072-a374-17ef9ba840f5'
     vstsPackageVersion: '0.0.1'
 - script: |
     echo 'Checking for download'
-    ls -lah $(Build.ArtifactStagingDirectory)
-    md5sum $(Build.ArtifactStagingDirectory)/*
+    ls -lah $(System.DefaultWorkingDirectory)
+#    md5sum $(Build.ArtifactStagingDirectory)/*
 #- task: Docker@2
 #  displayName: Build and push an image to container registry
 #  inputs:
