@@ -27,7 +27,17 @@ steps:
 - task: CMake@1
   inputs:
     cmakeArgs: '--build .'
-- script: |
-    pwd
-    ls -lah
-    ls -lah build
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'build'
+    Contents: 'main.hex'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: UniversalPackages@0
+  inputs:
+    command: 'publish'
+    publishDirectory: '$(Build.ArtifactStagingDirectory)'
+    feedsToUsePublish: 'internal'
+    vstsFeedPublish: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
+    vstsFeedPackagePublish: 'main.hex'
+    versionOption: 'patch'
+    packagePublishDescription: 'hex file output'
