@@ -42,3 +42,4 @@ steps:
     vstsFeedPackagePublish: 'main.hex'
     versionOption: 'patch'
     packagePublishDescription: 'hex file output'
+- script: cat /proc/cpuinfo
