@@ -43,3 +43,4 @@ steps:
     versionOption: 'patch'
     packagePublishDescription: 'hex file output'
 - script: cat /proc/cpuinfo
+- script: echo $(Build.BuildId)
