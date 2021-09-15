@@ -13,7 +13,7 @@ steps:
   inputs:
     buildType: 'specific'
     project: 'CSCOTestPrivate'
-    definition: '2'
+    pipeline: '2'
     buildVersionToDownload: 'latest'
     artifactName: 'avr-common'
     targetPath: '$(Build.ArtifactStagingDirectory)'
