@@ -12,11 +12,10 @@ pool:
 jobs:
 - job: RunTestScript
   steps:
-  - script: echo Hello, world!
+  - script: |
+      echo Hello, world!
+      echo Pipeline ID: $(system.definitionId)
 - job: BuildAndPublish
-  #variables:
-  #- name: arch
-  #  value: avr
   container:
     image: cscotest.azurecr.io/mabuild:latest
     endpoint: CSCOTest
