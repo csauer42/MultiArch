@@ -35,3 +35,10 @@ jobs:
       targetPath: '$(Build.ArtifactStagingDirectory)'
       artifact: 'avr-common'
       publishLocation: 'pipeline'
+  - task: AzureFileCopy@4
+    inputs:
+      SourcePath: '$(Build.artifactStagingDirectory)'
+      azureSubscription: 'Azure subscription 1(e348d66c-c78e-40a3-b097-3e70e49d6185)'
+      Destination: 'AzureBlob'
+      storage: 'cscostoragetest'
+      ContainerName: 'avrcommonstorage'
