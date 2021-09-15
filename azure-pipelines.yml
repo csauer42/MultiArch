@@ -3,8 +3,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger:
-- main
+trigger: none
 
 pool:
   vmImage: ubuntu-latest
@@ -28,8 +27,14 @@ jobs:
     inputs:
       cmakeArgs: '--build .'
   - script: |
-      tar -zcvf $(Build.ArtifactStagingDirectory)/AVRCommon build/main.hex
-      md5sum $(Build.ArtifactStagingDirectory)/AVRCommon | cut -d ' ' -f 1 > $(Build.ArtifactStagingDirectory)/AVRCommon.md5
+      mkdir $(Build.ArtifactStagingDirectory)/avr
+      tar -zcvf $(Build.ArtifactStagingDirectory)/avr/AVRCommon build/main.hex
+      md5sum $(Build.ArtifactStagingDirectory)/avr/AVRCommon | cut -d ' ' -f 1 > $(Build.ArtifactStagingDirectory)/avr/AVRCommon.md5
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: $(Build.ArtifactStagingDirectory)/avr
+      artifact: 'avr-common'
+      publishLocation: 'pipeline'
   - task: UniversalPackages@0
     inputs:
       command: 'publish'
