@@ -37,7 +37,6 @@ jobs:
       feedsToUsePublish: 'internal'
       vstsFeedPublish: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
       vstsFeedPackagePublish: 'avr-common'
-      versionOption: 'custom'
-      versionPublish: '$(package_version)'
+      versionOption: 'patch'
       packagePublishDescription: 'avr common package'
       publishedPackageVar: 'latest_avr_common'
