@@ -31,22 +31,8 @@ jobs:
   - script: |
       tar -zcvf $(Build.ArtifactStagingDirectory)/AVRCommon build/main.hex
       md5sum $(Build.ArtifactStagingDirectory)/AVRCommon | cut -d ' ' -f 1 > $(Build.ArtifactStagingDirectory)/AVRCommon.md5
-  - task: UniversalPackages@0
-    inputs:
-      command: 'publish'
-      publishDirectory: '$(Build.ArtifactStagingDirectory)'
-      feedsToUsePublish: 'internal'
-      vstsFeedPublish: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
-      vstsFeedPackagePublish: 'avr-common'
-      versionOption: 'patch'
-      packagePublishDescription: 'compressed hex output'
   - task: PublishPipelineArtifact@1
     inputs:
       targetPath: '$(Build.ArtifactStagingDirectory)'
-      artifact: 'avr-common-pipeline'
+      artifact: 'avr-common'
       publishLocation: 'pipeline'
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'avr-common-publish-build-artifacts'
-      publishLocation: 'Container'
