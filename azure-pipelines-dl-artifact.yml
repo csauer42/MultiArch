@@ -12,7 +12,7 @@ steps:
 - task: DownloadPipelineArtifact@2
   inputs:
     buildType: 'specific'
-    project: '477fc493-2c12-4877-954a-3040372f2485'
+    project: 'CSCOTestingPrivate'
     definition: '2'
     buildVersionToDownload: 'latest'
     artifactName: 'avr-common'
