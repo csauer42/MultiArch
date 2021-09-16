@@ -9,6 +9,14 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
+- stage: Check
+  jobs:
+  - job: Check_AVR
+    steps:
+    - script: |
+        ls /
+        echo 'Binaries Directory: '$(Build.BinariesDirectory)
+        echo 'Artifact Staging' $(Build.ArtifactStagingDirectory)
 - stage: Build
   jobs:
   - job: Build_AVR
@@ -25,11 +33,12 @@ stages:
         cmakeArgs: '--build .'
     - script: |
         ls /
-        echo $(Build.BinariesDirectory)
+        echo 'Binaries Directory: ' $(Build.BinariesDirectory)
         ls $(Build.BinariesDirectory)
         mkdir $(Build.BinariesDirectory)/avr
         tar -zcvf $(Build.BinariesDirectory)/avr/AVRCommon build/main.hex
         md5sum $(Build.BinariesDirectory)/avr/AVRCommon | cut -d ' ' -f 1 > $(Build.BinariesDirectory)/avr/AVRCommon.md5
+        ls -lah $(Build.BinariesDirectory)/avr
 #        mkdir $(Build.ArtifactStagingDirectory)/avr
 #        tar -zcvf $(Build.ArtifactStagingDirectory)/avr/AVRCommon build/main.hex
 #        md5sum $(Build.ArtifactStagingDirectory)/avr/AVRCommon | cut -d ' ' -f 1 > $(Build.ArtifactStagingDirectory)/avr/AVRCommon.md5
