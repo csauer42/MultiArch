@@ -26,11 +26,9 @@ stages:
       inputs:
         cmakeArgs: '--build .'
     - script: |
-        pwd
-        ls
-        #mkdir /opt/staging/avr
-        #tar -zcvf /opt/staging/avr/AVRCommon build/main.hex
-        #md5sum /opt/staging/avr/AVRCommon | cut -d ' ' -f 1 > /opt/staging/avr/AVRCommon.md5
+        mkdir avr
+        tar -zcvf avr/AVRCommon build/main.hex
+        md5sum avr/AVRCommon | cut -d ' ' -f 1 > avr/AVRCommon.md5
 #    - script: |
 #        mkdir $(Build.ArtifactStagingDirectory)/avr
 #        tar -zcvf $(Build.ArtifactStagingDirectory)/avr/AVRCommon build/main.hex
@@ -40,9 +38,8 @@ stages:
   jobs:
   - job: Publish_AVR
     steps:
-    - script: ls -lah $(Build.ArtifactStagingDirectory)
+#    - script: ls -lah $(Build.ArtifactStagingDirectory)
     - script: |
-        pwd
         ls
 #    - task: AzureCLI@2
 #      inputs:
