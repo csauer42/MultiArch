@@ -14,7 +14,7 @@ jobs:
   - script: |
       echo Hello, world!
       echo Pipeline ID: $(system.definitionId)
-- job: BuildAndPublish
+- job: Build
   container:
     image: cscotest.azurecr.io/mabuild:latest
     endpoint: CSCOTest
@@ -30,6 +30,9 @@ jobs:
       mkdir $(Build.ArtifactStagingDirectory)/avr
       tar -zcvf $(Build.ArtifactStagingDirectory)/avr/AVRCommon build/main.hex
       md5sum $(Build.ArtifactStagingDirectory)/avr/AVRCommon | cut -d ' ' -f 1 > $(Build.ArtifactStagingDirectory)/avr/AVRCommon.md5
+- job: Publish
+  steps:
+  - script: ls -lah $(Build.ArtifactStagingDirectory)
   - task: AzureCLI@2
     inputs:
       azureSubscription: 'Azure subscription 1(1)(e348d66c-c78e-40a3-b097-3e70e49d6185)'
