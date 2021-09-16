@@ -30,18 +30,24 @@ jobs:
       mkdir $(Build.ArtifactStagingDirectory)/avr
       tar -zcvf $(Build.ArtifactStagingDirectory)/avr/AVRCommon build/main.hex
       md5sum $(Build.ArtifactStagingDirectory)/avr/AVRCommon | cut -d ' ' -f 1 > $(Build.ArtifactStagingDirectory)/avr/AVRCommon.md5
-  - task: PublishPipelineArtifact@1
+  - task: AzureCLI@2
     inputs:
-      targetPath: $(Build.ArtifactStagingDirectory)/avr
-      artifact: 'avr-common'
-      publishLocation: 'pipeline'
-  - task: UniversalPackages@0
-    inputs:
-      command: 'publish'
-      publishDirectory: '$(Build.ArtifactStagingDirectory)'
-      feedsToUsePublish: 'internal'
-      vstsFeedPublish: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
-      vstsFeedPackagePublish: 'avr-common'
-      versionOption: 'patch'
-      packagePublishDescription: 'avr common package'
-      publishedPackageVar: 'latest_avr_common'
+      azureSubscription: 'Azure subscription 1(1)(e348d66c-c78e-40a3-b097-3e70e49d6185)'
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: 'az storage copy -s $(Build.ArtifactStagingDirectory)/avr --account-name cscostoragetest --destination-container artifacts --recursive'
+#  - task: PublishPipelineArtifact@1
+#    inputs:
+#      targetPath: $(Build.ArtifactStagingDirectory)/avr
+#      artifact: 'avr-common'
+#      publishLocation: 'pipeline'
+#  - task: UniversalPackages@0
+#    inputs:
+#      command: 'publish'
+#      publishDirectory: '$(Build.ArtifactStagingDirectory)'
+#      feedsToUsePublish: 'internal'
+#      vstsFeedPublish: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
+#      vstsFeedPackagePublish: 'avr-common'
+#      versionOption: 'patch'
+#      packagePublishDescription: 'avr common package'
+#      publishedPackageVar: 'latest_avr_common'
