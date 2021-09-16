@@ -15,7 +15,8 @@ stages:
     container:
       image: cscotest.azurecr.io/mabuild:latest
       endpoint: CSCOTest
-      options: -v $(Build.ArtifactStagingDirectory):/opt/staging
+      volumes:
+      - $(Build.ArtifactStagingDirectory):/opt/staging
     steps:
     - task: CMake@1
       inputs:
