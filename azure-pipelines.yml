@@ -44,6 +44,7 @@ stages:
 #        tar -zcvf $(Build.ArtifactStagingDirectory)/avr/AVRCommon build/main.hex
 #        md5sum $(Build.ArtifactStagingDirectory)/avr/AVRCommon | cut -d ' ' -f 1 > $(Build.ArtifactStagingDirectory)/avr/AVRCommon.md5
   - job: CheckDirectory_AVR
+    dependsOn: Build_AVR
     steps:
     - script: ls -lah $(Build.BinariesDirectory)
 - stage: Publish
