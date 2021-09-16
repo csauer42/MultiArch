@@ -24,6 +24,7 @@ stages:
       inputs:
         cmakeArgs: '--build .'
     - script: |
+        ls /
         echo $(Build.BinariesDirectory)
         ls $(Build.BinariesDirectory)
         mkdir $(Build.BinariesDirectory)/avr
