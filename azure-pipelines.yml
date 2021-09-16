@@ -15,8 +15,8 @@ stages:
     container:
       image: cscotest.azurecr.io/mabuild:latest
       endpoint: CSCOTest
-      volumes:
-      - $(Build.ArtifactStagingDirectory):/opt/staging
+#      volumes:
+#      - '$(Build.ArtifactStagingDirectory)':/opt/staging
     steps:
     - task: CMake@1
       inputs:
@@ -26,9 +26,11 @@ stages:
       inputs:
         cmakeArgs: '--build .'
     - script: |
-        mkdir /opt/staging/avr
-        tar -zcvf /opt/staging/avr/AVRCommon build/main.hex
-        md5sum /opt/staging/avr/AVRCommon | cut -d ' ' -f 1 > /opt/staging/avr/AVRCommon.md5
+        pwd
+        ls
+        #mkdir /opt/staging/avr
+        #tar -zcvf /opt/staging/avr/AVRCommon build/main.hex
+        #md5sum /opt/staging/avr/AVRCommon | cut -d ' ' -f 1 > /opt/staging/avr/AVRCommon.md5
 #    - script: |
 #        mkdir $(Build.ArtifactStagingDirectory)/avr
 #        tar -zcvf $(Build.ArtifactStagingDirectory)/avr/AVRCommon build/main.hex
@@ -39,12 +41,15 @@ stages:
   - job: Publish_AVR
     steps:
     - script: ls -lah $(Build.ArtifactStagingDirectory)
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: 'Azure subscription 1(1)(e348d66c-c78e-40a3-b097-3e70e49d6185)'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: 'az storage copy -s $(Build.ArtifactStagingDirectory)/avr --account-name cscostoragetest --destination-container artifacts --recursive'
+    - script: |
+        pwd
+        ls
+#    - task: AzureCLI@2
+#      inputs:
+#        azureSubscription: 'Azure subscription 1(1)(e348d66c-c78e-40a3-b097-3e70e49d6185)'
+#        scriptType: 'bash'
+#        scriptLocation: 'inlineScript'
+#        inlineScript: 'az storage copy -s $(Build.ArtifactStagingDirectory)/avr --account-name cscostoragetest --destination-container artifacts --recursive'
 #  - task: PublishPipelineArtifact@1
 #    inputs:
 #      targetPath: $(Build.ArtifactStagingDirectory)/avr
