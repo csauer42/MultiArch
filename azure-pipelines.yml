@@ -24,6 +24,8 @@ stages:
       inputs:
         cmakeArgs: '--build .'
     - script: |
+        echo $(Build.BinariesDirectory)
+        ls $(Build.BinariesDirectory)
         mkdir $(Build.BinariesDirectory)/avr
         tar -zcvf $(Build.BinariesDirectory)/avr/AVRCommon build/main.hex
         md5sum $(Build.BinariesDirectory)/avr/AVRCommon | cut -d ' ' -f 1 > $(Build.BinariesDirectory)/avr/AVRCommon.md5
