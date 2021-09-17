@@ -47,9 +47,9 @@ stages:
         feedsToUsePublish: 'internal'
         vstsFeedPublish: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
         vstsFeedPackagePublish: 'avr-common'
-        #versionOption: 'patch'
-        versionOption: 'custom'
-        versionPublish: '1.5.4-1'
+        versionOption: 'patch'
+        #versionOption: 'custom'
+        #versionPublish: '1.5.4-1'
         packagePublishDescription: 'test output'
 - stage: Publish
   jobs:
