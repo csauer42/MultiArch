@@ -47,32 +47,12 @@ stages:
         feedsToUsePublish: 'internal'
         vstsFeedPublish: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
         vstsFeedPackagePublish: 'avr-common'
-        versionOption: 'patch'
+        #versionOption: 'patch'
+        versionOption: 'custom'
+        versionPublish: '1.5.4.1'
         packagePublishDescription: 'test output'
-
 - stage: Publish
   jobs:
   - job: Publish_AVR
     steps:
     - script: ls -lah $(Build.BinariesDirectory)
-#    - task: AzureCLI@2
-#      inputs:
-#        azureSubscription: 'Azure subscription 1(1)(e348d66c-c78e-40a3-b097-3e70e49d6185)'
-#        scriptType: 'bash'
-#        scriptLocation: 'inlineScript'
-#        inlineScript: 'az storage copy -s $(Build.ArtifactStagingDirectory)/avr --account-name cscostoragetest --destination-container artifacts --recursive'
-#  - task: PublishPipelineArtifact@1
-#    inputs:
-#      targetPath: $(Build.ArtifactStagingDirectory)/avr
-#      artifact: 'avr-common'
-#      publishLocation: 'pipeline'
-#  - task: UniversalPackages@0
-#    inputs:
-#      command: 'publish'
-#      publishDirectory: '$(Build.ArtifactStagingDirectory)'
-#      feedsToUsePublish: 'internal'
-#      vstsFeedPublish: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
-#      vstsFeedPackagePublish: 'avr-common'
-#      versionOption: 'patch'
-#      packagePublishDescription: 'avr common package'
-#      publishedPackageVar: 'latest_avr_common'
