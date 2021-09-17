@@ -49,7 +49,7 @@ stages:
         vstsFeedPackagePublish: 'avr-common'
         #versionOption: 'patch'
         versionOption: 'custom'
-        versionPublish: '1.5.4.1'
+        versionPublish: '1.5.4-1'
         packagePublishDescription: 'test output'
 - stage: Publish
   jobs:
