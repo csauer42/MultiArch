@@ -40,13 +40,16 @@ stages:
         md5sum $(Build.BinariesDirectory)/avr/AVRCommon | cut -d ' ' -f 1 > $(Build.BinariesDirectory)/avr/AVRCommon.md5
         echo "Current contents of $(Build.BinariesDirectory)/avr:"
         ls -lah $(Build.BinariesDirectory)/avr
-#        mkdir $(Build.ArtifactStagingDirectory)/avr
-#        tar -zcvf $(Build.ArtifactStagingDirectory)/avr/AVRCommon build/main.hex
-#        md5sum $(Build.ArtifactStagingDirectory)/avr/AVRCommon | cut -d ' ' -f 1 > $(Build.ArtifactStagingDirectory)/avr/AVRCommon.md5
-  - job: CheckDirectory_AVR
-    dependsOn: Build_AVR
-    steps:
-    - script: ls -lah $(Build.BinariesDirectory)
+    - task: UniversalPackages@0
+      inputs:
+        command: 'publish'
+        publishDirectory: '$(Build.BinariesDirectory)/avr'
+        feedsToUsePublish: 'internal'
+        vstsFeedPublish: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
+        vstsFeedPackagePublish: 'avr-common'
+        versionOption: 'patch'
+        packagePublishDescription: 'test output'
+
 - stage: Publish
   jobs:
   - job: Publish_AVR
