@@ -16,7 +16,8 @@ stages:
     - script: |
         ls /
         echo 'Binaries Directory: '$(Build.BinariesDirectory)
-        echo 'Artifact Staging' $(Build.ArtifactStagingDirectory)
+        echo 'Artifact Staging: ' $(Build.ArtifactStagingDirectory)
+        echo 'Available Processor Threads: ' $(nproc)
 - stage: Build
   jobs:
   - job: Build_AVR
