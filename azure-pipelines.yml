@@ -10,6 +10,9 @@ pool:
 
 jobs:
 - job: AVR
+  variables:
+    - name: artver
+      value: ''
   container:
     image: cscotest.azurecr.io/mabuild:latest
     endpoint: CSCOTest
