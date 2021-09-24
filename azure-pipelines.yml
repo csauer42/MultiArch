@@ -21,7 +21,7 @@ stages:
         echo 'Build.SourceBranch: '$(Build.SourceBranch)
         echo 'Setting version variable:'
         echo "##vso[task.setvariable variable=artifactVersion]$(git describe)"
-        echo "$(artifactVersion)"
+        echo "$(environmentVars.artifactVersion)"
 - stage: Build
   jobs:
   - job: Build_AVR
