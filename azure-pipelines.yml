@@ -8,58 +8,35 @@ trigger: none
 pool:
   vmImage: ubuntu-latest
 
-stages:
-- stage: Check
-  jobs:
-  - job: Check_AVR
-    steps:
-    - bash: |
-        ARTVER=$(git describe)
-        echo "##vso[task.setvariable variable=artver]$ARTVER"
-      name: SetVar
-    - script: |
-        #echo 'Binaries Directory: '$(Build.BinariesDirectory)
-        #echo 'Artifact Staging: ' $(Build.ArtifactStagingDirectory)
-        #echo 'Available Processor Threads: ' $(nproc)
-        echo 'Build.SourceBranch: '$(Build.SourceBranch)
-        echo 'Git describe: '$(git describe)
-        echo $(artver)
-- stage: Build
-  jobs:
-  - job: Build_AVR
-    container:
-      image: cscotest.azurecr.io/mabuild:latest
-      endpoint: CSCOTest
-    steps:
-    - task: CMake@1
-      inputs:
-        workingDirectory: build
-        cmakeArgs: ../
-    - task: CMake@1
-      inputs:
-        cmakeArgs: '--build .'
-    - script: |
-        ls /
-        echo 'Binaries Directory: ' $(Build.BinariesDirectory)
-        ls $(Build.BinariesDirectory)
-        mkdir $(Build.BinariesDirectory)/avr
-        tar -zcvf $(Build.BinariesDirectory)/avr/AVRCommon build/main.hex
-        md5sum $(Build.BinariesDirectory)/avr/AVRCommon | cut -d ' ' -f 1 > $(Build.BinariesDirectory)/avr/AVRCommon.md5
-        echo "Current contents of $(Build.BinariesDirectory)/avr:"
-        ls -lah $(Build.BinariesDirectory)/avr
-#    - task: UniversalPackages@0
-#      inputs:
-#        command: 'publish'
-#        publishDirectory: '$(Build.BinariesDirectory)/avr'
-#        feedsToUsePublish: 'internal'
-#        vstsFeedPublish: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
-#        vstsFeedPackagePublish: 'avr-common'
-#        versionOption: 'patch'
-#        #versionOption: 'custom'
-#        #versionPublish: '1.5.4-1'
-#        packagePublishDescription: 'test output'
-#- stage: Publish
-#  jobs:
-#  - job: Publish_AVR
-#    steps:
-#    - script: ls -lah $(Build.BinariesDirectory)
+jobs:
+- job: AVR
+  container:
+    image: cscotest.azurecr.io/mabuild:latest
+    endpoint: CSCOTest
+  steps:
+  - bash: |
+      ARTVER=$(git describe)
+      echo "##vso[task.setvariable variable=artver]$ARTVER"
+    name: SetVar
+  - task: CMake@1
+    inputs:
+      workingDirectory: build
+      cmakeArgs: ../
+  - task: CMake@1
+    inputs:
+      cmakeArgs: '--build .'
+  - bash: |
+      mkdir $(Build.BinariesDirectory)/avr
+      tar -zcvf $(Build.BinariesDirectory)/avr/AVRCommon build/main.hex
+      md5sum $(Build.BinariesDirectory)/avr/AVRCommon | cut -d ' ' -f 1 > $(Build.BinariesDirectory)/avr/AVRCommon.md5
+    name: Package
+  - task: UniversalPackages@0
+    inputs:
+      command: 'publish'
+      publishDirectory: '$(Build.BinariesDirectory)/avr'
+      feedsToUsePublish: 'internal'
+      vstsFeedPublish: '477fc493-2c12-4877-954a-3040372f2485/40809f3d-1cfb-45c7-b7e3-589968369bc9'
+      vstsFeedPackagePublish: 'avr-common'
+      versionOption: 'custom'
+      versionPublish: '$(artver)'
+      packagePublishDescription: 'test output'
