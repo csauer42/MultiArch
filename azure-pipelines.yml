@@ -3,10 +3,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger:
-  branches:
-    include:
-      - refs/tags/v*
+trigger: none
 
 pool:
   vmImage: ubuntu-latest
@@ -22,6 +19,9 @@ stages:
         echo 'Artifact Staging: ' $(Build.ArtifactStagingDirectory)
         echo 'Available Processor Threads: ' $(nproc)
         echo 'Build.SourceBranch: '$(Build.SourceBranch)
+        echo 'Setting version variable:'
+        echo "##vso[task.setvariable variable=artifactVersion]$(git describe)"
+        echo "$(artifactVersion)"
 - stage: Build
   jobs:
   - job: Build_AVR
