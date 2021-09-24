@@ -20,6 +20,7 @@ jobs:
   - bash: |
       ARTVER=$(git describe)
       echo "##vso[task.setvariable variable=artver]$ARTVER"
+      echo $ARTVER
     name: SetVar
   - task: CMake@1
     inputs:
@@ -34,7 +35,8 @@ jobs:
       md5sum $(Build.BinariesDirectory)/avr/AVRCommon | cut -d ' ' -f 1 > $(Build.BinariesDirectory)/avr/AVRCommon.md5
     name: Package
   - bash: |
-      echo "Version: $(artver)"
+      echo 'Version: '$(artver)
+    name: CheckVar
   # - task: UniversalPackages@0
   #   inputs:
   #     command: 'publish'
