@@ -8,11 +8,11 @@ trigger: none
 pool:
   vmImage: ubuntu-latest
 
-# set package variable once, use in all jobs
-
 jobs:
+  # set package variable once, use in all jobs
 - job: GetVersion
   steps:
+      # isOutput to pass to other job, ${X:1} to trim 'v' character from git output
   - bash: |
       ARTVER=$(git describe)
       echo "##vso[task.setvariable variable=artver;isOutput=true]${ARTVER:1}"
@@ -20,6 +20,7 @@ jobs:
 - job: BuildAndPublish
   dependsOn: GetVersion
   variables:
+           #$[ dependencies.{job-name}.outputs['{step}.{var}']]
     artver: $[ dependencies.GetVersion.outputs['SetVar.artver']]
   container:
     image: cscotest.azurecr.io/mabuild:latest
