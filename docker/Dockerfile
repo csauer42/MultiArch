@@ -1,5 +1,7 @@
 FROM ubuntu:20.04
 
+LABEL version "1.0.0"
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 # update & install
