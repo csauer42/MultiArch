@@ -26,8 +26,8 @@ jobs:
     image: cscotest.azurecr.io/mabuild:latest
     endpoint: CSCOTest
   steps:
-#  - checkout: self
-#    lfs: true
+  - checkout: self
+    lfs: true
   - task: CMake@1
     inputs:
       workingDirectory: build
