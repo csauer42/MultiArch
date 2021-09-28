@@ -40,6 +40,7 @@ jobs:
       tar -zcvf $(Build.BinariesDirectory)/avr/AVRCommon_$(artver) build/main.hex binaries/garbage.bin
       md5sum $(Build.BinariesDirectory)/avr/AVRCommon_$(artver) | cut -d ' ' -f 1 > $(Build.BinariesDirectory)/avr/AVRCommon_$(artver).md5
       md5sum binaries/garbage.bin
+      ls -lah binaries/garbage.bin
     name: Package
   - bash: |
       echo 'Version: '$(artver)

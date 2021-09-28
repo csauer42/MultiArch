@@ -25,7 +25,7 @@ variables:
 
 steps:
 - bash: |
-    VERTAG=$(grep docker/Dockerfile | cut -d '"' -f 2)
+    VERTAG=$(grep version docker/Dockerfile | cut -d '"' -f 2)
     echo "##vso[task.setvariable variable=vertag]$VERTAG"
 - task: UniversalPackages@0
   inputs:
