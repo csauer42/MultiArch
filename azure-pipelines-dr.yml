@@ -24,6 +24,9 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 steps:
+- bash: |
+    VERTAG=$(grep docker/Dockerfile | cut -d '"' -f 2)
+    echo "##vso[task.setvariable variable=vertag]$VERTAG"
 - task: UniversalPackages@0
   inputs:
     command: 'download'
@@ -36,6 +39,7 @@ steps:
     echo 'Checking for download'
     ls -lah $(Build.ArtifactStagingDirectory)
     md5sum $(Build.ArtifactStagingDirectory)/*
+    echo 'Version tag: '$(vertag)
 - task: Docker@2
   displayName: Build and push an image to container registry
   inputs:
@@ -45,5 +49,5 @@ steps:
     buildContext: $(Build.ArtifactStagingDirectory)
     containerRegistry: $(dockerRegistryServiceConnection)
     tags: |
-      1.0.0
+      $(vertag)
       latest
