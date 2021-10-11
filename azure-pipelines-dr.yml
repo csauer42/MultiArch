@@ -53,6 +53,9 @@ steps:
     dockerfile: $(dockerfilePath)
     buildContext: $(Build.ArtifactStagingDirectory)
     containerRegistry: $(dockerRegistryServiceConnection)
+    tags: |
+      $(vertag)
+      latest
 - task: Docker@2
   condition: ne(variables['Build.Reason'], 'PullRequest')
   displayName: Push image to container registry
