@@ -10,13 +10,14 @@ trigger:
     include:
     - docker
 
-#pr:
-#  branches:
-#    include:
-#    - main
-#  paths:
-#    include:
-#    - docker
+pr:
+  branches:
+    include:
+    - main
+    - docker-rev
+  paths:
+    include:
+    - docker/Dockerfile
 
 resources:
 - repo: self
