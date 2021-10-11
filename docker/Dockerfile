@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-LABEL version "1.0.6"
+LABEL version "1.1.0"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
