@@ -11,6 +11,9 @@ trigger:
     - docker
 
 pr:
+  branches:
+    include:
+    - main
   paths:
     include:
     - docker
