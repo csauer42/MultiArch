@@ -14,7 +14,6 @@ pr:
   branches:
     include:
     - main
-    - docker-rev
   paths:
     include:
     - docker/Dockerfile
