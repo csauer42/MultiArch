@@ -11,9 +11,13 @@ trigger:
     - docker
 
 pr:
+  branches:
+    include:
+    - main
+    - docker-rev
   paths:
     include:
-    - docker
+    - docker/Dockerfile
 
 resources:
 - repo: self
@@ -23,7 +27,7 @@ variables:
   dockerRegistryServiceConnection: 'd78f3a82-dd05-48e9-85a5-a9cea426baf4'
   imageRepository: 'mabuild'
   containerRegistry: 'cscotest.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: 'docker/Dockerfile'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
